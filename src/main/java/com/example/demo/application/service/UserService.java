@@ -8,6 +8,7 @@ import com.example.demo.presentation.dto.request.CreateUserRequest;
 import com.example.demo.presentation.dto.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +27,12 @@ public class UserService {
         User savedUser = userRepository.save(user);
 
         return UserMapper.toResponse(savedUser);
+    }
+
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(UserMapper::toResponse)
+                .toList();
     }
 }
