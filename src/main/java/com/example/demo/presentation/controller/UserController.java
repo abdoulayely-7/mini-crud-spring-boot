@@ -1,0 +1,37 @@
+package com.example.demo.presentation.controller;
+
+import com.example.demo.application.service.UserService;
+import com.example.demo.common.response.ApiResponse;
+import com.example.demo.presentation.dto.request.CreateUserRequest;
+import com.example.demo.presentation.dto.response.UserResponse;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/users")
+@RequiredArgsConstructor
+public class UserController {
+
+    private final UserService userService;
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<UserResponse>> createUser(
+            @Valid @RequestBody CreateUserRequest request
+    ) {
+
+        UserResponse response = userService.createUser(request);
+
+        ApiResponse<UserResponse> apiResponse =
+                ApiResponse.<UserResponse>builder()
+                        .success(true)
+                        .message("User created successfully")
+                        .data(response)
+                        .build();
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(apiResponse);
+    }
+}
