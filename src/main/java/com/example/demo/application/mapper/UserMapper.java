@@ -2,6 +2,7 @@ package com.example.demo.application.mapper;
 
 import com.example.demo.domain.model.User;
 import com.example.demo.presentation.dto.request.CreateUserRequest;
+import com.example.demo.presentation.dto.request.UpdateUserRequest;
 import com.example.demo.presentation.dto.response.UserResponse;
 
 public class UserMapper {
@@ -15,6 +16,12 @@ public class UserMapper {
                 .password(request.password())
                 .email(request.email())
                 .build();
+    }
+
+    public static void updateEntityFromDto(UpdateUserRequest request, User user) {
+        user.setUsername(request.username());
+        user.setPassword(request.password());
+        user.setEmail(request.email());
     }
 
     public static UserResponse toResponse(User user) {
