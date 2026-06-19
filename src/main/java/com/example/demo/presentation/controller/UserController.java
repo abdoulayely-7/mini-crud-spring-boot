@@ -16,55 +16,51 @@ import java.util.List;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
+        // test
 
-    private final UserService userService;
+        private final UserService userService;
 
-    @PostMapping
-    public ResponseEntity<ApiResponse<UserResponse>> createUser(
-            @Valid @RequestBody CreateUserRequest request
-    ) {
+        @PostMapping
+        public ResponseEntity<ApiResponse<UserResponse>> createUser(
+                        @Valid @RequestBody CreateUserRequest request) {
 
-        UserResponse response = userService.createUser(request);
+                UserResponse response = userService.createUser(request);
 
-        ApiResponse<UserResponse> apiResponse =
-                ApiResponse.<UserResponse>builder()
-                        .success(true)
-                        .message("User created successfully")
-                        .data(response)
-                        .build();
+                ApiResponse<UserResponse> apiResponse = ApiResponse.<UserResponse>builder()
+                                .success(true)
+                                .message("User created successfully")
+                                .data(response)
+                                .build();
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(apiResponse);
-    }
+                return ResponseEntity.status(HttpStatus.CREATED)
+                                .body(apiResponse);
+        }
 
-    @GetMapping
-    public ResponseEntity<ApiResponse<List<UserResponse>>> getAllUsers() {
-        List<UserResponse> users = userService.getAllUsers();
+        @GetMapping
+        public ResponseEntity<ApiResponse<List<UserResponse>>> getAllUsers() {
+                List<UserResponse> users = userService.getAllUsers();
 
-        ApiResponse<List<UserResponse>> apiResponse =
-                ApiResponse.<List<UserResponse>>builder()
-                        .success(true)
-                        .message("Users retrieved successfully")
-                        .data(users)
-                        .build();
+                ApiResponse<List<UserResponse>> apiResponse = ApiResponse.<List<UserResponse>>builder()
+                                .success(true)
+                                .message("Users retrieved successfully")
+                                .data(users)
+                                .build();
 
-        return ResponseEntity.ok(apiResponse);
-    }
+                return ResponseEntity.ok(apiResponse);
+        }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<UserResponse>> updateUser(
-            @PathVariable Long id,
-            @Valid @RequestBody UpdateUserRequest request
-    ) {
-        UserResponse response = userService.updateUser(id, request);
+        @PutMapping("/{id}")
+        public ResponseEntity<ApiResponse<UserResponse>> updateUser(
+                        @PathVariable Long id,
+                        @Valid @RequestBody UpdateUserRequest request) {
+                UserResponse response = userService.updateUser(id, request);
 
-        ApiResponse<UserResponse> apiResponse =
-                ApiResponse.<UserResponse>builder()
-                        .success(true)
-                        .message("User updated successfully")
-                        .data(response)
-                        .build();
+                ApiResponse<UserResponse> apiResponse = ApiResponse.<UserResponse>builder()
+                                .success(true)
+                                .message("User updated successfully")
+                                .data(response)
+                                .build();
 
-        return ResponseEntity.ok(apiResponse);
-    }
+                return ResponseEntity.ok(apiResponse);
+        }
 }
