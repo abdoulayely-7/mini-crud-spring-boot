@@ -1,0 +1,45 @@
+services:
+  app:
+    image: abdoulayely777/mini-crud-spring:latest
+    container_name: spring_app
+    restart: unless-stopped
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_PROFILES_ACTIVE: prod
+
+    # env_file:
+    #   - .env
+
+    depends_on:
+      - db
+
+    networks:
+      - spring_net
+
+  db:
+    image: postgres:16-alpine
+    container_name: spring_db
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+    networks:
+      - spring_net
+
+volumes:
+  pg_data:
+
+networks:
+  spring_net:
