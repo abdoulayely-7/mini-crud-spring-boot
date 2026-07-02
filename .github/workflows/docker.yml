@@ -51,4 +51,5 @@ jobs:
           script: |
             cd ~/mini-crud-spring-boot
             docker compose -f docker-compose.prod.yml pull
-            docker compose -f docker-compose.prod.yml up -d
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
+            docker image prune -f
